@@ -95,9 +95,7 @@ int Neural_network::size() const
 }
 
 Neural_network::Neural_network()
-{
-
-}
+= default;
 
 int Neural_network::hidden_layer_size(int ind_layer) const {
     if (ind_layer < 0 || ind_layer >= hidNeurons.size())
