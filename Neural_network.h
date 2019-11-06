@@ -9,6 +9,7 @@
 #include "Neuron.h"
 #include <vector>
 
+
 class Neural_network {
 public:
 
@@ -36,8 +37,6 @@ public:
     //return amount of layers;
     int size() const;
 
-protected:
-    Neural_network();
 private:
     void set_inputs(std::vector<float> inpts);
 
