@@ -47,3 +47,9 @@ void Neuron::set_weight(int ind_dendrite, float value)
 
     dendrite[ind_dendrite].weight = value;
 }
+
+Neuron::Neuron(const vector<Dendrite>& dendrites) : Neuron()
+{
+    for(Dendrite den : dendrites)
+        dendrite.emplace_back(den);
+}

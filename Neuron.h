@@ -28,6 +28,7 @@ public:
 
 
     Neuron();
+    Neuron(const std::vector<Dendrite>& dendrites);
 
     float get_axon_value() const {return axon.getSignal(); }
     float get_weight(int ind_dendrite) const;
