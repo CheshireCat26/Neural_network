@@ -3,3 +3,4 @@ project(NeuralNetwork)
 
 add_executable(NeuralNetwork main.cpp Neuron.cpp Neuron.h Neural_network.cpp Neural_network.h)
 target_link_libraries(NeuralNetwork gtest_main)
+add_subdirectory(Google_tests)

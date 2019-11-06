@@ -100,6 +100,19 @@ Neural_network::Neural_network(int input_size, std::vector<int> hidden_size, int
         inNeurons.emplace_back(Input_neuron());
     }
 
+    for (int i{0}; i < hidden_size.size(); i++)
+    {
+        vector<Neuron> layer;
+        for (int j{0}; j < hidden_size[i]; j++)
+            layer.emplace_back(Neuron());
+        hidNeurons.emplace_back(layer);
+    }
+
+    for (int i{0}; i < output_size; i++)
+    {
+        outNeurons.emplace_back(Neuron());
+    }
+
 }
 
 int Neural_network::hidden_layer_size(int ind_layer) const {
