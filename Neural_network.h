@@ -42,8 +42,15 @@ public:
     int input_layer_size() const { return inNeurons.size(); }
     int hidden_layers_size() const {return hidNeurons.size(); }
     int hidden_layer_size(int ind_layer) const;
-    int out_layer_size() const { return hidNeurons.size(); }
+    int out_layer_size() const { return outNeurons.size(); }
 
+    void add_input_neuron(const Input_neuron& inputNeuron);
+    void add_hidden_neuron(int ind_layer, const Neuron& neuron);
+    void add_out_neuron(const Neuron& neuron);
+
+    Input_neuron& get_input_neuron_ref(int ind);
+    Neuron& get_hid_neuron_ref(int ind_lay, int ind_n);
+    Neuron& get_out_neuron_ref(int ind);
 private:
     void set_inputs(std::vector<float> inpts);
 

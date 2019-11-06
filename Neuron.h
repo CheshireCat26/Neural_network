@@ -24,6 +24,8 @@ public:
     public:
         float weight;
         Axon *inputAkson;
+
+        Dendrite(float weight, Axon inAxon) : weight{weight}, inputAkson{&inAxon} {}
     };
 
 
@@ -31,6 +33,7 @@ public:
     Neuron(const std::vector<Dendrite>& dendrites);
 
     float get_axon_value() const {return axon.getSignal(); }
+    Axon& get_axon_ref() { return axon; }
     float get_weight(int ind_dendrite) const;
     void set_weight(int ind_dendrite, float value);
 private:

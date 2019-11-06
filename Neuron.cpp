@@ -18,6 +18,7 @@ float Neuron::Axon::getSignal() const
 Neuron::Neuron()
 {
     axon.ownerNeuron = this;
+    dendrite.clear();
 }
 
 /* Neuron get signal from every it's dendrite, multiply the signal by dendrite's weight ans sum them.
