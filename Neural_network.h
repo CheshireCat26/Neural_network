@@ -28,7 +28,7 @@ public:
     };
 
     //Size of hidden_size is amount of hidden layers .Each element in hidden_size is size of hidden layer.
-    Neural_network(int input_size, std::vector<int> hidden_size, int output_size);
+    Neural_network();
 
     //return answer of net for input in;
     std::vector<float> test(const std::vector<float> &in);
