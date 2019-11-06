@@ -35,5 +35,5 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-add_executable(NeuralNetwork main.cpp Neuron.cpp Neuron.h Neural_network.cpp Neural_network.h)
+add_executable(NeuralNetwork main.cpp Neuron.cpp Neuron.h Neural_network.cpp Neural_network.h Test.h)
 target_link_libraries(NeuralNetwork gtest_main)
