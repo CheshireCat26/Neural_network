@@ -36,6 +36,7 @@ public:
     };
 
     Neuron(const Neuron &neuron);
+    Neuron();
     explicit Neuron(const std::vector<Dendrite>& dendrites);
 
     float get_axon_value() const { return axon.getSignal(); }
