@@ -60,7 +60,7 @@ Neuron::Neuron(const vector<Dendrite>& dendrites) : Neuron()
 
 Neuron::Neuron(const Neuron &neuron) : dendrite{neuron.dendrite}{
     axon.ownerNeuron = this;
-    axon.input = neuron.axon.input;
+    axon.set_input(neuron.axon.get_input());
 }
 
 Neuron &Neuron::operator=(const Neuron &neuron) {
@@ -68,6 +68,6 @@ Neuron &Neuron::operator=(const Neuron &neuron) {
         return *this;
 
     axon.ownerNeuron = neuron.axon.ownerNeuron;
-    axon.input = neuron.axon.input;
+    axon.set_input(neuron.axon.get_input());
     return *this;
 }

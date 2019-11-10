@@ -18,6 +18,11 @@ public:
     public:
         virtual float getSignal() const;//Activation function
         Neuron *ownerNeuron;
+
+        void set_input(bool b) { input = b; }
+        bool get_input() const { return input; }
+
+    private:
         bool input = false; //Axon can be in Input neuron. If it in input neuron, it should't modify signal;
     };
 

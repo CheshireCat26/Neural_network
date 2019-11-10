@@ -10,7 +10,7 @@ using namespace std;
 
 void Neural_network::set_inputs(std::vector<float> inputs)
 {
-    if (inputs.size() != inNeurons.size())
+    if (inputs.size() != inNeurons.size() - 1)//Last input neuron is bias
         throw runtime_error("Neural_network::set_inputs(): inputs.size() != inNeurons.size()");
 
     for (int i{0}; i < inputs.size(); i++)

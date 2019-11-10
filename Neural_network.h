@@ -15,17 +15,23 @@ public:
 
     /*Input neuron is child of Neruon. Input neuron  */
     class Input_neuron : public Neuron
-            {
+    {
+    public:
+        Input_neuron() { get_axon_ref().set_input(true); }
+        void set_value(float v) { value = v; }
     private:
         float sum_function() const override {
             return value;
         }
-
-    public:
-
-        void set_value(float v) { value = v; }
-    private:
         float value{};
+    };
+
+    //Bias is used to neural network be able to study when all inputs is 0. Each layer except output has bias.
+    //Bias connect to each neuron on lower layer
+    class Bias_neuron : public Input_neuron
+    {
+    public:
+        Bias_neuron() : Input_neuron() { set_value(1); }
     };
 
     //Size of hidden_size is amount of hidden layers .Each element in hidden_size is size of hidden layer.
