@@ -58,6 +58,8 @@ public:
     Input_neuron& get_input_neuron_ref(int ind);
     Neuron& get_hid_neuron_ref(int ind_lay, int ind_n);
     Neuron& get_out_neuron_ref(int ind);
+
+    ~Neural_network();
 private:
     void set_inputs(std::vector<float> inputs);
 

@@ -83,6 +83,16 @@ Neuron &Neural_network::get_out_neuron_ref(int ind) {
     return *outNeurons[ind];
 }
 
+Neural_network::~Neural_network() {
+    for (int i{0}; i < inNeurons.size(); i++)
+        delete inNeurons[i];
+    for (int i{0}; i < outNeurons.size(); i++)
+        delete outNeurons[i];
+    for (int i{0}; i < hidNeurons.size(); i++)
+        for (int j{0}; j < hidNeurons[i].size(); j++)
+            delete hidNeurons[i][j];
+}
+
 Neural_network::Input_neuron::Input_neuron(const Neural_network::Input_neuron &inputNeuron)  : Neuron(inputNeuron) {
     value = inputNeuron.value;
 }
