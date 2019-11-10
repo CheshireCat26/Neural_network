@@ -18,7 +18,12 @@ public:
     {
     public:
         Input_neuron() { get_axon_ref().set_input(true); }
+        Input_neuron (const Input_neuron& inputNeuron);
+
         void set_value(float v) { value = v; }
+        float get_value() const { return value; }
+
+        Input_neuron& operator=(const Input_neuron& inputNeuron);
     private:
         float sum_function() const override {
             return value;
@@ -32,6 +37,9 @@ public:
     {
     public:
         Bias_neuron() : Input_neuron() { set_value(1); }
+
+        Bias_neuron(const Bias_neuron& biasNeuron) : Input_neuron(biasNeuron) {}
+        Bias_neuron& operator=(const Bias_neuron& biasNeuron) { set_value(biasNeuron.get_value()); }
     };
 
     //Size of hidden_size is amount of hidden layers .Each element in hidden_size is size of hidden layer.

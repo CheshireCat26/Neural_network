@@ -13,8 +13,8 @@ void Neural_network::set_inputs(std::vector<float> inputs)
     if (inputs.size() != inNeurons.size() - 1)//First input neuron is bias
         throw runtime_error("Neural_network::set_inputs(): inputs.size() != inNeurons.size()");
 
-    for (int i{0}; i < inputs.size(); i++)
-        inNeurons[i].set_value(inputs[i]);
+    for (int i{1}; i < inNeurons.size(); i++)
+        inNeurons[i].set_value(inputs[i - 1]);
 }
 
 vector<float> Neural_network::test(const vector<float> &in)
@@ -81,4 +81,12 @@ Neuron &Neural_network::get_out_neuron_ref(int ind) {
     if (ind < 0 || ind >= outNeurons.size())
         throw runtime_error("Neural_network::get_out_neuron_ref(): out of out neurons");
     return outNeurons[ind];
+}
+
+Neural_network::Input_neuron::Input_neuron(const Neural_network::Input_neuron &inputNeuron)  : Neuron(inputNeuron) {
+    value = inputNeuron.value;
+}
+
+Neural_network::Input_neuron &Neural_network::Input_neuron::operator=(const Neural_network::Input_neuron &inputNeuron) {
+    value = inputNeuron.value;
 }
