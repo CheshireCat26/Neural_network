@@ -8,13 +8,13 @@
 using namespace std;
 
 
-void Neural_network::set_inputs(std::vector<float> inpts)
+void Neural_network::set_inputs(std::vector<float> inputs)
 {
-    if (inpts.size() != inNeurons.size())
-        throw runtime_error("Neural_network::set_inputs(): inpts.size() != inNeurons.size()");
+    if (inputs.size() != inNeurons.size())
+        throw runtime_error("Neural_network::set_inputs(): inputs.size() != inNeurons.size()");
 
-    for (int i{0}; i < inpts.size(); i++)
-        inNeurons[i].set_value(inpts[i]);
+    for (int i{0}; i < inputs.size(); i++)
+        inNeurons[i].set_value(inputs[i]);
 }
 
 vector<float> Neural_network::test(const vector<float> &in)
@@ -25,68 +25,6 @@ vector<float> Neural_network::test(const vector<float> &in)
         out[i] = outNeurons[i].get_axon_value();
 
     return out;
-}
-
-float Neural_network::get_weight(int ind_layer, int ind_neuron, int ind_dendrite) const
-{
-    if (ind_layer < 0 || ind_neuron < 0 || ind_dendrite < 0)
-        throw runtime_error("Neural_network::get_weight(): negative value");
-
-    if (ind_layer > hidNeurons.size() + 1)
-        throw runtime_error("Neural_network::get_weight(): out of layers");
-
-    if (ind_layer == 0) //input layer
-    {
-        if (ind_neuron >= inNeurons.size())
-            throw runtime_error("Neural_network::get_weight(): out of input neurons");
-
-        return inNeurons[ind_neuron].get_weight(ind_dendrite);
-    }
-    else if (ind_layer == hidNeurons.size() + 1) //out layer
-    {
-        if (ind_neuron >= outNeurons.size())
-            throw runtime_error("Neural_network::get_weight(): out of output neurons");
-
-        return outNeurons[ind_neuron].get_weight(ind_dendrite);
-    }
-    else //hidden layers
-    {
-        if (ind_neuron >= hidNeurons[ind_layer].size())
-            throw runtime_error("Neural_network::get_weight(): out of hidden neurons");
-
-        return hidNeurons[ind_layer][ind_neuron].get_weight(ind_dendrite);
-    }
-}
-
-void Neural_network::set_weight(int ind_layer, int ind_neuron, int ind_dendrite, float value)
-{
-    if (ind_layer < 0 || ind_neuron < 0 || ind_dendrite < 0)
-        throw runtime_error("Neural_network::get_weight(): negative value");
-
-    if (ind_layer > hidNeurons.size() + 1)
-        throw runtime_error("Neural_network::get_weight(): out of layers");
-
-    if (ind_layer == 0) //input layer
-    {
-        if (ind_neuron >= inNeurons.size())
-            throw runtime_error("Neural_network::get_weight(): out of input neurons");
-
-        inNeurons[ind_neuron].set_weight(ind_dendrite, value);
-    }
-    else if (ind_layer == hidNeurons.size() + 1) //out layer
-    {
-        if (ind_neuron >= outNeurons.size())
-            throw runtime_error("Neural_network::get_weight(): out of output neurons");
-
-        outNeurons[ind_neuron].set_weight(ind_dendrite, value);
-    }
-    else //hidden layers
-    {
-        if (ind_neuron >= hidNeurons[ind_layer].size())
-            throw runtime_error("Neural_network::get_weight(): out of hidden neurons");
-
-        hidNeurons[ind_layer][ind_neuron].set_weight(ind_dendrite, value);
-    }
 }
 
 int Neural_network::size() const

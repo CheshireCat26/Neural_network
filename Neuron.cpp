@@ -11,11 +11,14 @@ using namespace std;
 /*Activation function is sigmoid function. Sigmoid function is 1/(1 + exp(-x)). X is output from neuron*/
 float Neuron::Axon::getSignal() const
 {
-    return 1 / (1 + exp(ownerNeuron->sum_function()));
+    if (!input)
+        return 1 / (1 + exp(-ownerNeuron->sum_function()));
+    else
+        return ownerNeuron->sum_function();
 }
 
 /* Set this neuron as the owner for this Neuron's axon */
-Neuron::Neuron()
+Neuron::Neuron() : axon()
 {
     axon.ownerNeuron = this;
     dendrite.clear();
@@ -53,4 +56,18 @@ Neuron::Neuron(const vector<Dendrite>& dendrites) : Neuron()
 {
     for(Dendrite den : dendrites)
         dendrite.emplace_back(den);
+}
+
+Neuron::Neuron(const Neuron &neuron) : dendrite{neuron.dendrite}{
+    axon.ownerNeuron = this;
+    axon.input = neuron.axon.input;
+}
+
+Neuron &Neuron::operator=(const Neuron &neuron) {
+    if (&neuron == this)
+        return *this;
+
+    axon.ownerNeuron = neuron.axon.ownerNeuron;
+    axon.input = neuron.axon.input;
+    return *this;
 }
