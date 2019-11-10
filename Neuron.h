@@ -41,8 +41,7 @@ public:
 
     float get_axon_value() const { return axon.getSignal(); }
     Axon& get_axon_ref() { return axon; }
-    float get_weight(int ind_dendrite) const;
-    void set_weight(int ind_dendrite, float value);
+    Dendrite& get_dendrite_ref(int ind);
 
     Neuron& operator=(const Neuron& neuron);
 private:

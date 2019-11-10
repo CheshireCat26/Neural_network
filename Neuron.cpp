@@ -36,22 +36,6 @@ float Neuron::sum_function() const
     return result;
 }
 
-float Neuron::get_weight(int ind_dendrite) const
-{
-    if (ind_dendrite < 0 || ind_dendrite >= dendrite.size())
-        throw runtime_error("Neuron::get_weight(): not available value");
-
-    return dendrite[ind_dendrite].weight;
-}
-
-void Neuron::set_weight(int ind_dendrite, float value)
-{
-    if (ind_dendrite < 0 || ind_dendrite >= dendrite.size())
-        throw runtime_error("Neuron::set_weight(): not available value");
-
-    dendrite[ind_dendrite].weight = value;
-}
-
 Neuron::Neuron(const vector<Dendrite>& dendrites) : Neuron()
 {
     for(Dendrite den : dendrites)
@@ -70,4 +54,10 @@ Neuron &Neuron::operator=(const Neuron &neuron) {
     axon.ownerNeuron = neuron.axon.ownerNeuron;
     axon.set_input(neuron.axon.get_input());
     return *this;
+}
+
+Neuron::Dendrite &Neuron::get_dendrite_ref(int ind) {
+    if (ind < 0 || ind > dendrite.size())
+        throw runtime_error("Neuron::Dendrite &Neuron::get_dendrite_ref(): out of dendrites");
+    return dendrite[ind];
 }

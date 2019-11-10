@@ -38,7 +38,6 @@ public:
         Bias_neuron() : Input_neuron() { set_value(1);}
     };
 
-    //Size of hidden_size is amount of hidden layers .Each element in hidden_size is size of hidden layer.
     Neural_network();
 
     //return answer of net for input in;
