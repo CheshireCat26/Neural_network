@@ -10,7 +10,7 @@ using namespace std;
 
 void Neural_network::set_inputs(std::vector<float> inputs)
 {
-    if (inputs.size() != inNeurons.size() - 1)//Last input neuron is bias
+    if (inputs.size() != inNeurons.size() - 1)//First input neuron is bias
         throw runtime_error("Neural_network::set_inputs(): inputs.size() != inNeurons.size()");
 
     for (int i{0}; i < inputs.size(); i++)
@@ -33,7 +33,9 @@ int Neural_network::size() const
 }
 
 Neural_network::Neural_network()
-= default;
+{
+    inNeurons.emplace_back(Bias_neuron());
+}
 
 int Neural_network::hidden_layer_size(int ind_layer) const {
     if (ind_layer < 0 || ind_layer >= hidNeurons.size())
@@ -49,7 +51,11 @@ void Neural_network::add_hidden_neuron(int ind_layer, const Neuron& neuron) {
     if (ind_layer < 0 || ind_layer > hidNeurons.size())
         throw runtime_error("Neural_network::add_hidden_neuron(): out of hidden layers");
     if (ind_layer == hidNeurons.size())
+    {
         hidNeurons.emplace_back(vector<Neuron>());
+        hidNeurons[ind_layer].emplace_back(Bias_neuron());
+    }
+
     hidNeurons[ind_layer].emplace_back(neuron);
 }
 
