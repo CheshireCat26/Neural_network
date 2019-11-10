@@ -25,8 +25,7 @@ public:
 
         Input_neuron& operator=(const Input_neuron& inputNeuron);
     private:
-        float sum_function() const override {
-            return value;
+        float sum_function() const override {return value;
         }
         float value{};
     };
@@ -36,10 +35,7 @@ public:
     class Bias_neuron : public Input_neuron
     {
     public:
-        Bias_neuron() : Input_neuron() { set_value(1); }
-
-        Bias_neuron(const Bias_neuron& biasNeuron) : Input_neuron(biasNeuron) {}
-        Bias_neuron& operator=(const Bias_neuron& biasNeuron) { set_value(biasNeuron.get_value()); }
+        Bias_neuron() : Input_neuron() { set_value(1);}
     };
 
     //Size of hidden_size is amount of hidden layers .Each element in hidden_size is size of hidden layer.
@@ -65,9 +61,9 @@ public:
 private:
     void set_inputs(std::vector<float> inputs);
 
-    std::vector<Input_neuron> inNeurons;
-    std::vector<std::vector<Neuron>> hidNeurons;
-    std::vector<Neuron> outNeurons;
+    std::vector<Input_neuron*> inNeurons;
+    std::vector<std::vector<Neuron*>> hidNeurons;
+    std::vector<Neuron*> outNeurons;
 };
 
 

@@ -14,7 +14,7 @@ void Neural_network::set_inputs(std::vector<float> inputs)
         throw runtime_error("Neural_network::set_inputs(): inputs.size() != inNeurons.size()");
 
     for (int i{1}; i < inNeurons.size(); i++)
-        inNeurons[i].set_value(inputs[i - 1]);
+        inNeurons[i]->set_value(inputs[i - 1]);
 }
 
 vector<float> Neural_network::test(const vector<float> &in)
@@ -22,7 +22,7 @@ vector<float> Neural_network::test(const vector<float> &in)
     set_inputs(in);
     vector<float> out(outNeurons.size());
     for (int i{0}; i < outNeurons.size(); i++)
-        out[i] = outNeurons[i].get_axon_value();
+        out[i] = outNeurons[i]->get_axon_value();
 
     return out;
 }
@@ -34,7 +34,7 @@ int Neural_network::size() const
 
 Neural_network::Neural_network()
 {
-    inNeurons.emplace_back(Bias_neuron());
+    inNeurons.emplace_back(new Bias_neuron());
 }
 
 int Neural_network::hidden_layer_size(int ind_layer) const {
@@ -44,7 +44,7 @@ int Neural_network::hidden_layer_size(int ind_layer) const {
 }
 
 void Neural_network::add_input_neuron(const Neural_network::Input_neuron& inputNeuron) {
-    inNeurons.emplace_back(inputNeuron);
+    inNeurons.emplace_back(new Input_neuron(inputNeuron));
 }
 
 void Neural_network::add_hidden_neuron(int ind_layer, const Neuron& neuron) {
@@ -52,21 +52,21 @@ void Neural_network::add_hidden_neuron(int ind_layer, const Neuron& neuron) {
         throw runtime_error("Neural_network::add_hidden_neuron(): out of hidden layers");
     if (ind_layer == hidNeurons.size())
     {
-        hidNeurons.emplace_back(vector<Neuron>());
-        hidNeurons[ind_layer].emplace_back(Bias_neuron());
+        hidNeurons.emplace_back(vector<Neuron*>());
+        hidNeurons[ind_layer].emplace_back(new Bias_neuron());
     }
 
-    hidNeurons[ind_layer].emplace_back(neuron);
+    hidNeurons[ind_layer].emplace_back(new Neuron(neuron));
 }
 
 void Neural_network::add_out_neuron(const Neuron& neuron) {
-    outNeurons.emplace_back(neuron);
+    outNeurons.emplace_back(new Neuron(neuron));
 }
 
 Neural_network::Input_neuron &Neural_network::get_input_neuron_ref(int ind) {
     if (ind < 0 || ind >= inNeurons.size())
         throw runtime_error("Neural_network::get_input_neuron_ref(): out of input neurons");
-    return inNeurons[ind];
+    return *inNeurons[ind];
 }
 
 Neuron &Neural_network::get_hid_neuron_ref(int ind_lay, int ind_n) {
@@ -74,13 +74,13 @@ Neuron &Neural_network::get_hid_neuron_ref(int ind_lay, int ind_n) {
         throw runtime_error("Neural_network::get_hid_neuron_ref(): out of hidden layers");
     if (ind_n < 0 || ind_n >= hidNeurons[ind_lay].size())
         throw runtime_error("Neural_network::get_hid_neuron_ref(): out of hidden neurons");
-    return hidNeurons[ind_lay][ind_n];
+    return *hidNeurons[ind_lay][ind_n];
 }
 
 Neuron &Neural_network::get_out_neuron_ref(int ind) {
     if (ind < 0 || ind >= outNeurons.size())
         throw runtime_error("Neural_network::get_out_neuron_ref(): out of out neurons");
-    return outNeurons[ind];
+    return *outNeurons[ind];
 }
 
 Neural_network::Input_neuron::Input_neuron(const Neural_network::Input_neuron &inputNeuron)  : Neuron(inputNeuron) {

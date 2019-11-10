@@ -32,7 +32,7 @@ public:
         float weight;
         Axon *inputAkson;
 
-        Dendrite(float weight, Axon inAxon) : weight{weight}, inputAkson{&inAxon} {}
+        Dendrite(float weight, Axon& inAxon) : weight{weight}, inputAkson{&inAxon} {}
         Dendrite() : weight{0}, inputAkson{nullptr} {}
     };
 
